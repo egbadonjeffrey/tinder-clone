@@ -37,12 +37,17 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
       );
 
       setCookie("AuthToken", response.data.token);
+      setCookie("userId", response.data.userId);
 
       const success = response.status === 201;
+
+      if (success) {
+        console.log(cookies);
+      }
       if (success && isSignUp) navigate("/onboarding");
       if (success && !isSignUp) navigate("/dashboard");
 
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }

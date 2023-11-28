@@ -1,25 +1,36 @@
-import { useCookies } from 'react-cookie'
+/* eslint-disable react/prop-types */
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 const ChatHeader = ({ user }) => {
-    const [ cookies, setCookie, removeCookie ] = useCookies(['user'])
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
-    const logout = () => {
-        removeCookie('UserId', cookies.UserId)
-        removeCookie('AuthToken', cookies.AuthToken)
-        window.location.reload()
-    }
+  const navigate = useNavigate();
 
-    return (
-        <div className="chat-container-header">
-            <div className="profile">
-                <div className="img-container">
-                    <img src={user.url} alt={"photo of " + user.first_name}/>
-                </div>
-                <h3>{user.first_name}</h3>
-            </div>
-            <i className="log-out-icon" onClick={logout}>⇦</i>
+  const logout = () => {
+    removeCookie("UserId", cookies.userId);
+    removeCookie("AuthToken", cookies.AuthToken);
+    navigate("/");
+    window.location.reload();
+  };
+
+  // console.log(user);
+  return (
+    <div className="chat-container-header">
+      <div className="profile">
+        <div className="img-container">
+          <img
+            src={user && user.url}
+            alt={"photo of " + (user && user.first_name)}
+          />
         </div>
-    )
-}
+        <h3>{user && user.first_name}</h3>
+      </div>
+      <i className="log-out-icon" onClick={logout}>
+        Logout
+      </i>
+    </div>
+  );
+};
 
-export default ChatHeader
+export default ChatHeader;
