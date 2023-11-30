@@ -1,30 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TinderCard from "react-tinder-card";
 import ChatContainer from "../components/ChatContainer";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 
-// Static data moved outside the component
-const characters = [
-  {
-    name: "Richard Cypher",
-    url: "https://imgur.com/oPj4A8u.jpg",
-  },
-  {
-    name: "James Cypher",
-    url: "https://imgur.com/OckVkRo.jpg",
-  },
-];
-
 const Dashboard = () => {
   const [user, setUser] = useState(null);
-  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const [cookies] = useCookies(["user"]);
   const [lastDirection, setLastDirection] = useState();
   const [genderedUsers, setGenderedUsers] = useState(null);
 
   const userId = cookies.userId;
-
-  // console.log(userId);
 
   const getUser = async () => {
     try {
@@ -39,8 +25,6 @@ const Dashboard = () => {
     }
   };
   const getGenderedUsers = async () => {
-    console.log(user);
-
     try {
       if (user) {
         const response = await axios.get(
@@ -82,9 +66,6 @@ const Dashboard = () => {
       console.log(error);
     }
   };
-
-  console.log("user", user);
-  // console.log("GenderedUsers ", genderedUsers);
 
   const swiped = (direction, swipedUserId) => {
     console.log(swipedUserId);

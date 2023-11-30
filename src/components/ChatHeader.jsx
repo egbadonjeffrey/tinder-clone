@@ -3,7 +3,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 const ChatHeader = ({ user }) => {
-  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const [cookies, removeCookie] = useCookies(["user"]);
 
   const navigate = useNavigate();
 
@@ -14,7 +14,6 @@ const ChatHeader = ({ user }) => {
     window.location.reload();
   };
 
-  // console.log(user);
   return (
     <div className="chat-container-header">
       <div className="profile">

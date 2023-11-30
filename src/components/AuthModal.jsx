@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +9,9 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
   const [error, setError] = useState(null);
-  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const [setCookie] = useCookies(["user"]);
 
   let navigate = useNavigate();
-
-  console.log(email, password, confirmPassword);
 
   const handleClick = () => {
     setShowModal(false);
@@ -41,9 +40,6 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
 
       const success = response.status === 201;
 
-      if (success) {
-        console.log(cookies);
-      }
       if (success && isSignUp) navigate("/onboarding");
       if (success && !isSignUp) navigate("/dashboard");
 

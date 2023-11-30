@@ -1,11 +1,11 @@
 import Nav from "../components/Nav";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const OnBoarding = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+  const [cookies] = useCookies(["user"]);
   const [formData, setFormData] = useState({
     user_id: cookies.userId,
     first_name: "",
@@ -20,18 +20,14 @@ const OnBoarding = () => {
     matches: [],
   });
 
-  console.log("UserId", cookies);
-
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    console.log("submitted");
     e.preventDefault();
     try {
       const response = await axios.put("http://localhost:8080/user", {
         formData,
       });
-      console.log(response);
       const success = response.status === 200;
       if (success) navigate("/dashboard");
     } catch (err) {
